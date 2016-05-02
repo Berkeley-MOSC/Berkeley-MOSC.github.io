@@ -99,10 +99,10 @@
 	<script>
 
 		var default_data = [0, 0]
-		var ecall_data = [3.2, 2.8]; // [received, served]
-		var call_data = [3.3, 1.9];
-		var sms_data = [4.2, 1];
-		var web_data = [0, 0.2];
+		var ecall_data = [1, 1]; // [received, served]
+		var call_data = [1, 1];
+		var sms_data = [1, 1];
+		var web_data = [0, 0];
 		var labels = ["# Received", "# Served"];
 		var i = 0;
 
@@ -223,9 +223,22 @@
         
 	    }, dataType: "text"});
 
-	    pie1.redraw();
-	    pie2.redraw();
-	    pie3.redraw();
+	    var data1 = [
+			  { label: "Dropped", value: ecall_data[0]+1-ecall_data[1] },
+		    { label: "Served", value: ecall_data[1]+1 }
+			];
+			var data2 = [
+			  { label: "Dropped", value: call_data[0]+1-call_data[1] },
+		    { label: "Served", value: call_data[1]+1 }
+			];
+			var data3 = [
+			  { label: "Dropped", value: sms_data[0]+1-sms_data[1] },
+		    { label: "Served", value: sms_data[1]+1 }
+			];
+
+	    pie1.updateProp("data.content", data1);
+	    pie2.updateProp("data.content", data2);
+	    pie3.updateProp("data.content", data3);
 
 	    d3.select(".ecall-chart")
 			  .selectAll("div")
@@ -262,7 +275,7 @@
 		    		return (d / sum) * 280 + "px";
 			    })
 			  	.text(function(d) { return d; });
-		}, 3000);
+		}, 5000);
 	</script>
 	<script>
       $(function() {
