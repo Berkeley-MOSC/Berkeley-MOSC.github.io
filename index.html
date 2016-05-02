@@ -7,6 +7,9 @@
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+		<!-- Pie chart stuff -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.min.js"></script>
+		<script src="d3pie.min.js"></script>
 	</head>
 	<body>
 	  <div class="row">
@@ -55,6 +58,11 @@
 
 		  		<h3>Traffic</h3>
 
+		  		<ul class="piecharts">
+		  			<li><div id="pie1"></div></li>
+		  			<li><div id="pie2"></div></li>
+		  		</ul>
+
 		  		<ul>
 			  		<li>
 			  			<span class="subheading">Emergency calls</span>
@@ -90,10 +98,10 @@
 	<script>
 
 		var default_data = [0, 0]
-		var ecall_data = [0, 0]; // [received, served]
-		var call_data = [0, 0];
-		var sms_data = [0, 0];
-		var web_data = [0, 0];
+		var ecall_data = [0.32, 2.8]; // [received, served]
+		var call_data = [0.4, 1.9];
+		var sms_data = [0.45, 1];
+		var web_data = [0, 0.2];
 		var labels = ["# Received", "# Served"];
 		var i = 0;
 
@@ -114,6 +122,50 @@
 			    })
 			    .text(function(d) { return d; });
 
+		var pie1 = new d3pie("pie1", {
+    	header: {
+		    title: {
+		      text: "Calls served"
+		    },
+		    location: "pie-center"
+		  },
+		  size: {
+		    pieInnerRadius: "75%",
+		    canvasHeight: 400,
+    		canvasWidth: 400
+		  },
+		  data: {
+		    sortOrder: "label-asc",
+		    content: [
+		      { label: "Emergency calls", value: ecall_data[1] },
+		      { label: "Regular calls", value: call_data[1] },
+		      { label: "Texts", value: sms_data[1] },
+		    ]
+		  }
+		});
+
+		var pie2 = new d3pie("pie2", {
+    	header: {
+		    title: {
+		      text: "Total calls received"
+		    },
+		    location: "pie-center"
+		  },
+		  size: {
+		    pieInnerRadius: "75%",
+		    canvasHeight: 400,
+    		canvasWidth: 400
+		  },
+		  data: {
+		    sortOrder: "label-asc",
+		    content: [
+		      { label: "Emergency calls", value: ecall_data[0] },
+		      { label: "Regular calls", value: call_data[0] },
+		      { label: "Texts", value: sms_data[0] },
+		    ]
+		  }
+		});
+
 		var parser, xmlDoc;
 
 		setInterval(function(){
@@ -128,13 +180,16 @@
 				ecall_data[0] = received[0].childNodes[0].nodeValue;
 				ecall_data[1] = Math.floor(served[0].childNodes[0].nodeValue);
 				call_data[0] = received[1].childNodes[0].nodeValue;
-				call_data[1] = Math.floor(served[1].childNodes[0].nodeValue/2);
+				call_data[1] = Math.floor(served[1].childNodes[0].nodeValue);
 				sms_data[0] = received[2].childNodes[0].nodeValue;
-				sms_data[1] = Math.floor(served[2].childNodes[0].nodeValue/4);
+				sms_data[1] = Math.floor(served[2].childNodes[0].nodeValue);
 				web_data[0] = received[3].childNodes[0].nodeValue;
-				web_data[1] = Math.floor(served[3].childNodes[0].nodeValue/6);
+				web_data[1] = Math.floor(served[3].childNodes[0].nodeValue);
         
 	    }, dataType: "text"});
+
+	    pie1.redraw();
+	    pie2.redraw();
 
 	    d3.select(".ecall-chart")
 			  .selectAll("div")
@@ -171,7 +226,7 @@
 		    		return (d / sum) * 280 + "px";
 			    })
 			  	.text(function(d) { return d; });
-		}, 3000);
+		}, 7500);
 	</script>
 	<script>
       $(function() {
