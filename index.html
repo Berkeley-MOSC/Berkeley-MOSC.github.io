@@ -204,7 +204,7 @@
 		var parser, xmlDoc;
 
 		setInterval(function(){
-	    $.ajax({ url: "https://mosc-twilio.herokuapp.com/api/v1/stats", success: function(data){
+	    $.ajax({ url: "https://mosc-twilio2.herokuapp.com/api/v1/stats", success: function(data){
 
 	    	parser = new DOMParser();
 				xmlDoc = parser.parseFromString(data,"text/xml");
