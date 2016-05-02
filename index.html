@@ -4,46 +4,43 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- jQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<link href="bootstrap.min.css" rel="stylesheet">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 	  <div class="row">
-		  <div class="col-md-3" id="user-input">
+		  <div class="col-sm-3" id="user-input">
 
 		  	<div class="user-header">
 		  		<div class="title">MOSC</div>
 		  		<div class="description">Multiplexing Oversubscribed Circuits</div>
 		  	</div>
 
-		  	<form>
-					This control panel will let you communicate through our virtual cell tower.
-				</form>
-
 				<form>
 					<div id="message"></div>
 				</form>
 
 		  	<form action="https://mosc-twilio.herokuapp.com/api/v1/emergency_call" class="form">
-		  		<b>Make emergency call:</b><br>
-		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
-			    <input type="submit" value="submit" class="submit">
+		  		<b>Emergency call:</b><br>
+		  		<input type="text" name="number" value="911" class="input-field" placeholder="Number"><br>
+			    <input type="submit" value="Call" class="submit">
 			  </form>
 
 			  <form action="https://mosc-twilio.herokuapp.com/api/v1/call" class="form">
-		  		<b>Make non-emergency call:</b><br>
-		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
-			    <input type="submit" value="submit" class="submit">
+		  		<b>Regular call:</b><br>
+		  		<input type="text" name="number" class="input-field" placeholder="Recipient number"><br>
+			    <input type="submit" value="Call" class="submit">
 			  </form>
 
 			  <form action="https://mosc-twilio.herokuapp.com/api/v1/sms" class="form">
-		  		<b>Send SMS:</b><br>
-		  		<input type="text" name="number" class="input-field" placeholder="Number"><br>
+		  		<b>Text message:</b><br>
+		  		<input type="text" name="number" class="input-field" placeholder="Recipient number"><br>
 		  		<input type="text" name="message" class="input-field" placeholder="Message"><br>
-			    <input type="submit" value="submit" class="submit">
+			    <input type="submit" value="Text" class="submit">
 			  </form>
 		  </div>
-		  <div class="col-md-9 analytics">
+		  <div class="col-sm-9 analytics">
 
 		  	<div class="analytics-header">
 		  		Analytics Dashboard
@@ -51,7 +48,7 @@
 		  	
 		  	<div class="analytics-data">
 
-		  		<h3>Traffic received at our cell tower</h3>
+		  		<h3>Traffic</h3>
 
 		  		<ul>
 			  		<li>
@@ -71,12 +68,12 @@
 					<hr>
 
 					<div class="explanation">
-						<h4>So what is happening?</h4>
+						<h4>Explanation</h4>
 						<div>
-							As you know, calls and text messages all go through cell towers. During disasters, cell towers get overwhelmed with traffic and go down. What we're doing is making sure that the important stuff can go through by dropping less essential traffic.
+							During disasters, cell towers get overwhelmed with traffic and communications go down. Our software makes sure the important stuff can still go through by dropping less essential traffic at the cell towers.
 						</div>
 						<div>
-							This page is our demo. The control panel on the left lets you send traffic towards a cell tower that we built. The charts above show what kinds of data we receive and how many we actually serve. The calls/texts/searches that aren't served are dropped so our cell tower doesn't get overwhelmed.
+							You can make virtual calls and messages through our control panel. The charts above show what kinds of data we receive and how many actually make it through our filtering algorithm.
 						</div>
 					</div>
 		  	</div>
@@ -139,7 +136,7 @@
 			    .data(ecall_data)
 			    .style("width", function(d) { 
 			    	var sum = parseFloat(ecall_data[0]) + parseFloat(ecall_data[1]); 
-		    		return (d / sum) * 320 + "px";
+		    		return (d / sum) * 300 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -148,7 +145,7 @@
 			    .data(call_data)
 			    .style("width", function(d) { 
 			    	var sum = parseFloat(call_data[0]) + parseFloat(call_data[1]);
-		    		return (d / sum) * 320 + "px";
+		    		return (d / sum) * 280 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -157,7 +154,7 @@
 			    .data(sms_data)
 			    .style("width", function(d) { 
 			    	var sum = parseFloat(sms_data[0]) + parseFloat(sms_data[1]); 
-		    		return (d / sum) * 320 + "px";
+		    		return (d / sum) * 280 + "px";
 			    })
 			  	.text(function(d) { return d; });
 
@@ -166,10 +163,10 @@
 			    .data(web_data)
 			    .style("width", function(d) { 
 			    	var sum = parseFloat(web_data[0]) + parseFloat(web_data[1]); 
-		    		return (d / sum) * 320 + "px";
+		    		return (d / sum) * 280 + "px";
 			    })
 			  	.text(function(d) { return d; });
-		}, 2000);
+		}, 3000);
 	</script>
 	<script>
       $(function() {
