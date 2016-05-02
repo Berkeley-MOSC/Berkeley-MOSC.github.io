@@ -21,22 +21,27 @@
 					<div id="message"></div>
 				</form>
 
-		  	<form action="https://mosc-twilio.herokuapp.com/api/v1/emergency_call" class="form">
-		  		<b>Emergency call:</b><br>
-		  		<input type="text" name="number" value="911" class="input-field" placeholder="Number"><br>
-			    <input type="submit" value="Call" class="submit">
+		  	<form class="form">
+		  		<b>Emergency call:</b>
+		  		<br />
+		  		<div>
+			    	<a href="tel:1-844-687-5686" class="submit">Call</a>
+			    </div>
 			  </form>
 
-			  <form action="https://mosc-twilio.herokuapp.com/api/v1/call" class="form">
-		  		<b>Regular call:</b><br>
-		  		<input type="text" name="number" class="input-field" placeholder="Recipient number"><br>
-			    <input type="submit" value="Call" class="submit">
+			  <form class="form">
+		  		<b>Regular call:</b>
+		  		<br />
+		  		<div>
+			    	<a href="tel:1-256-667-1171" class="submit">Call</a>
+			    </div>
 			  </form>
 
 			  <form action="https://mosc-twilio.herokuapp.com/api/v1/sms" class="form">
 		  		<b>Text message:</b><br>
 		  		<input type="text" name="number" class="input-field" placeholder="Recipient number"><br>
-		  		<input type="text" name="message" class="input-field" placeholder="Message"><br>
+		  		<textarea type="text" name="message" class="input-field" cols="19" rows="4" placeholder="Message"></textarea>
+		  		<br />
 			    <input type="submit" value="Text" class="submit">
 			  </form>
 		  </div>
